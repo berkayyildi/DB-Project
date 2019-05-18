@@ -2,6 +2,16 @@
 <html>
 <body>
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<nav class="navbar navbar-light bg-light">
+  <span class="navbar-brand mb-0 h1">Market System</span>
+</nav>
+
+<center>
+
 <?php
 
 require_once("sqliconnect.php");    //SQL Bağlantı
@@ -290,7 +300,7 @@ if(@$_POST['city']){
 
 }else{
     
-    echo "<table><tr><td>";
+    echo "<table><tr><td width='33%'>";
 
     echo "(A)<br><br>";
 
@@ -298,6 +308,7 @@ if(@$_POST['city']){
     <input value='A' type='hidden' name='request'>
     <select name='city' onchange='this.form.submit()' >";
     $result = $baglan->query("SELECT * FROM Cities");
+    
     echo '<option value="-">Select City</option>'; 
     while ($row = $result->fetch_assoc()) {
                     echo '<option value="'.$row['id'].'">'.$row['name'].'</option>'; 
@@ -305,7 +316,7 @@ if(@$_POST['city']){
     echo "</select>";
     echo "</form>";
 
-    echo "</td><td>";
+    echo "</td><td width='33%'>";
 
     echo '(B)<br><br>
     <form method="POST">
@@ -358,27 +369,27 @@ if(@$_POST['city']){
     }
     echo "</select>";
 
-    echo '<br><br><button type="submit">Show Customer Invoice</button>
+    echo '<br><br><button class="btn btn-primary" type="submit">Show Customer Invoice</button>
     </form>
     ';
 
     
 
     echo "
-    </td><td>
+    </td><td width='33%'>
     (C)
     <br><br>
 
     <form method='POST'>
     <input value='CA' type='hidden' name='request'>
-    <button type='submit.'>Sales piechart per districts</button>
+    <button class='btn btn-primary' type='submit'>Sales piechart per districts</button>
     </form>
 
 
     <form method='POST'>
     <input value='CB' type='hidden' name='request'>
     <br><br>
-    <button type='submit'>Sales piechart per markets</button>
+    <button class='btn btn-primary' type='submit'>Sales piechart per markets</button>
     </form>
 
     </td></tr></table>";

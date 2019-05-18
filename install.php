@@ -243,11 +243,16 @@ echo "<br><font color='green'>Products Table random data created</font><br>";
 
 
 
-//------------------------------------\ CREATE RANDOM 5 MARKET FOREACH CITY/------------------------------------
+//------------------------------------\ CREATE RANDOM 5 UNIQUE MARKET FOREACH CITY/------------------------------------
 for( $i = 1; $i<82; $i++ ) {
+
+	//CREATE 1 to 10 array and shuffle it to get random first 5
+	$numbers = range(1, 10);
+	shuffle($numbers);
+
 	for( $j = 0; $j<5; $j++ ){
 
-		$marketid = rand(1, 10);
+		$marketid = $numbers[$j];
 
 		$sql = "INSERT INTO Init_Markets (city_id, market_id)
 				VALUES ('$i', '$marketid')";
