@@ -25,6 +25,7 @@ function sqlfileimport($conn, $sqlfilename, $servername, $username, $password, $
 $servername = "localhost";
 $username = "root";
 $password = "mysql";
+$dbadi = "berkayyildiz";
 
 $conn = new mysqli($servername, $username, $password);// Create connection
 mysqli_set_charset($conn, 'utf8');	//Set charset
@@ -33,27 +34,26 @@ if ($conn->connect_error) { // Check connection
 } 
 
 // Create database
-$sql = "CREATE DATABASE market";
+$sql = " CREATE DATABASE `$dbadi` ";
 
 if ($conn->query($sql) === TRUE) {
 	echo "<font color='green'>Database created successfully</font> <br>";
 
 	$conn->query("SET FOREIGN_KEY_CHECKS=0;");
-	sqlfileimport($conn, 'market.sql', $servername ,$username, $password, 'market');
+	sqlfileimport($conn, 'market.sql', $servername ,$username, $password, $dbadi);
 	$conn->query("SET FOREIGN_KEY_CHECKS=1;");
 
 } else{
 	echo "Database already exist please delete install.php after install for your security.<br>";
 	echo "Database will be deleted and regenerated because of re run! install.php<br>";
 
-	$sql = "DROP DATABASE market";
+	$sql = "DROP DATABASE  `$dbadi` " ;
 	if ($conn->query($sql) === TRUE) {
 		echo "Database DROP successfully. Refresh Page To Install";
 	} else{
 		echo "<font color='red'>Database DROP error! Please Delete Database manually and Refresh Page To Install</font>";
 	}
 
-	
 	//die();
 }
 

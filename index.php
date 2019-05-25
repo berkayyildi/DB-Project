@@ -23,6 +23,9 @@
 
 require_once("sqliconnect.php");    //SQL Bağlantı
 
+$baglan->query("SELECT * FROM Cities") or die('Database Connection successful but tables are does not exist.<br>Please run install to fix database.
+                                                <br> <button onclick="window.location.href=\'./install.php\'">Install</button>');;   //Test If tables inserted
+
 $request = @$_POST['request'];
 
 if($request == "A"){
@@ -167,9 +170,12 @@ if($request == "A"){
                                 GROUP BY product_id
                                 ORDER BY COUNT(product_id) DESC");
                                 
-    echo '<table><tr><td><b>Product Name</b></td> <td><b># Sales</b></td></tr>';
+    echo '<table><tr><td><b>Product Name</b></td> <td><b># Sales</b></td> <td><b>Progress</b></td></tr>';
     while ($row = $result->fetch_assoc()) {
-                    echo "<tr><td>" . $row['productname'] . "</td><td> " . $row['frequency'] . "</td></tr>"; 
+                    echo "<tr><td>" . $row['productname'] . "</td><td> " . $row['frequency'] . "</td><td width='400px'>     <div class='progress' style='width: 30% ; height: 20px;'>
+                    <div class='progress-bar' role='progressbar' style='width: " . $row['frequency']*10 . "%' aria-valuenow='" . 
+                    $row['frequency']*10 . "' aria-valuemin='0' aria-valuemax='100'>" . $row['productname'] . "</div>
+                </div></td></tr>"; 
     }
     echo "</table>";
     echo "<br><br><a href='./'>Go Mainpage</a>";
@@ -191,9 +197,12 @@ if($request == "A"){
                                 GROUP BY Sales.salesman_id
                                 ORDER BY COUNT(Sales.salesman_id) DESC");
 
-    echo '<table><tr><td><b>Salesman Name</b></td> <td><b># Sales</b></td></tr>';
+    echo '<table><tr><td><b>Salesman Name</b></td> <td><b># Sales</b></td><td><b>Progress</b></td></tr>';
     while ($row = $result->fetch_assoc()) {
-                    echo "<tr><td>" . $row['salesmanname'] . "</td><td> " . $row['frequency'] . "</td></tr>"; 
+                    echo "<tr><td>" . $row['salesmanname'] . "</td><td> " . $row['frequency'] . "</td><td width='400px'>     <div class='progress' style='width: 30% ; height: 20px;'>
+                    <div class='progress-bar' role='progressbar' style='width: " . $row['frequency']*10 . "%' aria-valuenow='" . 
+                    $row['frequency']*10 . "' aria-valuemin='0' aria-valuemax='100'>" . $row['salesmanname'] . "</div>
+                </div></td></tr>"; 
     }
     echo "</table>";
     echo "<br><br><a href='./'>Go Mainpage</a>";
@@ -216,7 +225,7 @@ if($request == "A"){
                                 LEFT JOIN Salesmans ON Sales.salesman_id = Salesmans.id
                                 WHERE salesman_id = '$salesman_id' ");
                             
-     echo '<table><tr><td><b>Product Name</b></td> <td><b>Price</b></td> <td><b>Customer Name</b></td> </tr>';
+     echo '<table><tr><td><b>Product Name</b></td> <td><b>Price</b></td> <td><b>Customer Name</b></td><td><b>Progress</b></td> </tr>';
      $totalprice = 0;
      while ($row = $result->fetch_assoc()) {
         $totalprice += $row['price'];
@@ -225,6 +234,12 @@ if($request == "A"){
                      echo "<td>" . $row['productname'] . "</td>";
                      echo "<td>" . $row['price'] . " TL</td>";
                      echo "<td>" . $row['customername'] . "</td>";
+
+                     echo"<td width='400px'>     <div class='progress' style='width: 30% ; height: 20px;'>
+                     <div class='progress-bar' role='progressbar' style='width: " . $row['price'] . "%' aria-valuenow='" . 
+                     $row['price'] . "' aria-valuemin='0' aria-valuemax='100'>" . $row['productname'] . "</div>
+                 </div></td>";
+
                      echo "</tr>";
      }
      echo "</table><hr>";

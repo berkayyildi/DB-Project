@@ -3,16 +3,16 @@
 	$dbhost = "localhost";
 	$dbkullanici = "root";
 	$dbsifre = "mysql";
-	$dbadi = "market";
+	$dbadi = "berkayyildiz";
 
-	$baglan = new mysqli($dbhost, $dbkullanici, $dbsifre, $dbadi);
+	$baglan = @new mysqli($dbhost, $dbkullanici, $dbsifre, $dbadi);	//Disable wae
 
 	if (mysqli_connect_errno()) {
 		echo "<br>";
 		echo mysqli_connect_error() . "<br>";
 		if(mysqli_connect_errno() == 1049){
 			echo "<b>Please run install.php and complate installation!</b><br>";
-			echo "<a href='install.php'>Run install.php</a>";
+			echo "<button onclick=\"window.location.href='./install.php'\">Install</button>";
 		}
 		exit();
 	}
